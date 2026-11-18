@@ -45,7 +45,7 @@ env:
 jobs:
   build:
     name: Build & publish
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     defaults:
       run:
         shell: powershell
@@ -82,7 +82,7 @@ jobs:
 
   security:
     name: Security scan (Trivy)
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     defaults:
       run:
         shell: powershell
@@ -109,7 +109,7 @@ jobs:
     name: Deploy to Azure Windows VM
     needs: [build, security]
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     environment:
       name: production-vm
       url: ${{ vars.SITE_URL }}
